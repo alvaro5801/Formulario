@@ -98,7 +98,7 @@ body { font-size: 0.9rem; color: #374151; }
 .signature-canvas.is-invalid { border-color: var(--bs-danger) !important; }
 .invalid-canvas-feedback { width: 100%; margin-top: 0.25rem; font-size: .875em; color: var(--bs-danger); display: none; }
 .signature-canvas.is-invalid ~ .invalid-canvas-feedback { display: block; }
-.hide-for-pdf { display: none !important; }
+/* .hide-for-pdf class is now managed by .printing-pdf parent class */
 .radio-group-feedback { font-size: 0.875em; margin-top: 0.25rem; min-height: 1.25em; display: none; }
 .radio-group-feedback.text-danger { color: var(--bs-danger); }
 .radio-group-feedback.text-success { color: var(--bs-success); }
@@ -117,3 +117,24 @@ body { font-size: 0.9rem; color: #374151; }
 .form-step { display: none; animation: fadeIn 0.5s; }
 .form-step.active { display: block; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* Styles for printing preparation */
+.printing-pdf .stepper-wrapper,
+.printing-pdf #navigationContainer .btn, /* Hide individual buttons in nav */
+.printing-pdf .btn-clear-signature {
+    display: none !important;
+}
+.printing-pdf #navigationContainer { /* Hide the whole container */
+     display: none !important;
+}
+.printing-pdf .form-step {
+    display: block !important; 
+    animation: none !important; 
+    margin-bottom: 15px; 
+    border-bottom: 1px dashed #eee; /* Optional: visual separator in PDF */
+    padding-bottom: 10px;
+}
+.printing-pdf .form-step:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
