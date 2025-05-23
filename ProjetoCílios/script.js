@@ -1,6 +1,5 @@
 // Make jsPDF available globally for html2canvas
 if (window.jspdf && !window.jsPDF) {
-  // Check if jspdf is on window and jsPDF is not
   window.jsPDF = window.jspdf.jsPDF;
 }
 
@@ -55,28 +54,31 @@ document.addEventListener('DOMContentLoaded', function () {
     let lastX = 0;
     let lastY = 0;
 
-    // Store the resize function to be callable
     const resizeCanvasFunc = function () {
       const style = getComputedStyle(canvas);
       const newWidth = parseInt(style.width, 10);
       const newHeight = parseInt(style.height, 10);
 
       if (canvas.width !== newWidth || canvas.height !== newHeight) {
-        // Save current drawing
         let tempImgData = null;
-        if (canvas.width > 0 && canvas.height > 0) {
-          // Only if canvas had dimensions
+        if (
+          canvas.width > 0 &&
+          canvas.height > 0 &&
+          !isCanvasBlank(ctx, canvas.width, canvas.height)
+        ) {
           try {
             tempImgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
           } catch (e) {
-            console.warn('Could not get image data before resize', e);
+            console.warn(
+              'Could not get image data before resize for ' + canvasId,
+              e,
+            );
           }
         }
 
         canvas.width = newWidth;
         canvas.height = newHeight;
 
-        // Restore drawing
         if (tempImgData) {
           ctx.putImageData(tempImgData, 0, 0);
         }
@@ -91,13 +93,10 @@ document.addEventListener('DOMContentLoaded', function () {
     let resizeTimeout;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(resizeCanvasFunc, 150); // Debounce
+      resizeTimeout = setTimeout(resizeCanvasFunc, 150);
     });
 
-    // Initial resize needs to happen after the element is in the DOM and sized
-    // Use a small timeout or requestAnimationFrame for reliability
-    // Ensure this is called when the canvas becomes visible if it starts hidden
-    setTimeout(resizeCanvasFunc, 50); // Small delay for initial sizing
+    setTimeout(resizeCanvasFunc, 50);
 
     function getMousePos(canvasDom, event) {
       var rect = canvasDom.getBoundingClientRect();
@@ -138,6 +137,21 @@ document.addEventListener('DOMContentLoaded', function () {
     canvas.addEventListener('touchmove', draw, { passive: false });
     canvas.addEventListener('touchend', stopDrawing);
 
+    const isCanvasBlank = (context, cWidth, cHeight) => {
+      if (cWidth === 0 || cHeight === 0) return true;
+      try {
+        const imageData = context.getImageData(0, 0, cWidth, cHeight);
+        for (let i = 0; i < imageData.data.length; i += 4) {
+          if (imageData.data[i + 3] > 0) {
+            return false;
+          }
+        }
+      } catch (e) {
+        return true;
+      }
+      return true;
+    };
+
     return {
       clear: () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -147,25 +161,8 @@ document.addEventListener('DOMContentLoaded', function () {
         );
         if (feedback) feedback.style.display = 'none';
       },
-      isEmpty: () => {
-        if (canvas.width === 0 || canvas.height === 0) return true;
-        try {
-          const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-          for (let i = 0; i < imageData.data.length; i += 4) {
-            if (imageData.data[i + 3] > 0) {
-              return false;
-            }
-          }
-        } catch (e) {
-          console.error(
-            'Error reading canvas image data for isEmpty check:',
-            e,
-          );
-          return true;
-        }
-        return true;
-      },
-      resize: resizeCanvasFunc, // Expose resize function
+      isEmpty: () => isCanvasBlank(ctx, canvas.width, canvas.height),
+      resize: resizeCanvasFunc,
     };
   }
 
@@ -187,9 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
       );
 
       if (!feedbackEl) {
-        console.warn(
-          `Feedback element not found for radio group: ${groupName}`,
-        );
+        // console.warn(`Feedback element not found for radio group: ${groupName}`);
         continue;
       }
 
@@ -254,7 +249,9 @@ document.addEventListener('DOMContentLoaded', function () {
       heightLeft -= pdfHeight - margin * 2;
 
       while (heightLeft > 0) {
-        position = margin - (imgHeight - heightLeft);
+        position =
+          margin -
+          (imgHeight - (imgHeight - heightLeft + (pdfHeight - margin * 2)));
         pdf.addPage();
         pdf.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
         heightLeft -= pdfHeight - margin * 2;
@@ -271,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function () {
       );
       submitButton.innerHTML = originalButtonText;
       submitButton.disabled = false;
-      showStep(currentStep);
+      // showStep(currentStep); // This will be handled by resetFormularioCompleto
     }
   }
 
@@ -293,14 +290,22 @@ document.addEventListener('DOMContentLoaded', function () {
       });
 
     if (localDataSignaturePad && !localDataSignaturePad.isEmpty()) {
-      formData['localDataCanvas'] = document
-        .getElementById('localDataCanvas')
-        .toDataURL();
+      try {
+        formData['localDataCanvas'] = document
+          .getElementById('localDataCanvas')
+          .toDataURL();
+      } catch (e) {
+        console.warn('Error saving localDataCanvas toDataURL', e);
+      }
     }
     if (assinaturaSignaturePad && !assinaturaSignaturePad.isEmpty()) {
-      formData['assinaturaCanvas'] = document
-        .getElementById('assinaturaCanvas')
-        .toDataURL();
+      try {
+        formData['assinaturaCanvas'] = document
+          .getElementById('assinaturaCanvas')
+          .toDataURL();
+      } catch (e) {
+        console.warn('Error saving assinaturaCanvas toDataURL', e);
+      }
     }
 
     localStorage.setItem('signatureFormAutosave', JSON.stringify(formData));
@@ -318,16 +323,20 @@ document.addEventListener('DOMContentLoaded', function () {
           const img = new Image();
           img.onload = function () {
             const ctx = canvas.getContext('2d');
-            // Ensure canvas is sized before drawing
-            if (canvas.width > 0 && canvas.height > 0) {
-              ctx.drawImage(img, 0, 0);
-            } else {
-              // If canvas not sized yet, wait a bit and try again or rely on resize
-              setTimeout(() => {
-                if (canvas.width > 0 && canvas.height > 0)
-                  ctx.drawImage(img, 0, 0);
-              }, 200);
+            const signaturePadInstance =
+              key === 'localDataCanvas'
+                ? localDataSignaturePad
+                : assinaturaSignaturePad;
+            if (
+              signaturePadInstance &&
+              typeof signaturePadInstance.resize === 'function'
+            ) {
+              signaturePadInstance.resize();
             }
+            setTimeout(() => {
+              if (canvas.width > 0 && canvas.height > 0)
+                ctx.drawImage(img, 0, 0);
+            }, 100);
           };
           img.src = formData[key];
         }
@@ -362,25 +371,7 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log('Form state loaded.');
   }
 
-  // --- INITIALIZATIONS & EVENT LISTENERS ---
-  applyMasks();
-  setupRadioGroupFeedback();
-
-  const localDataSignaturePad = initializeSignaturePad('localDataCanvas');
-  const assinaturaSignaturePad = initializeSignaturePad('assinaturaCanvas');
-
-  document.querySelectorAll('.btn-clear-signature').forEach((button) => {
-    button.addEventListener('click', function () {
-      const canvasId = this.dataset.canvas;
-      if (canvasId === 'localDataCanvas' && localDataSignaturePad) {
-        localDataSignaturePad.clear();
-      } else if (canvasId === 'assinaturaCanvas' && assinaturaSignaturePad) {
-        assinaturaSignaturePad.clear();
-      }
-      saveFormState();
-    });
-  });
-
+  // Stepper Logic Variables and Functions
   const formSteps = [...document.querySelectorAll('.form-step')];
   const stepperItems = [...document.querySelectorAll('.stepper-item')];
   const prevBtn = document.getElementById('prevBtn');
@@ -401,15 +392,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function showStep(stepIndex) {
     formSteps.forEach((step, index) => {
+      step.style.display = index === stepIndex ? 'block' : 'none';
       step.classList.toggle('active', index === stepIndex);
     });
     prevBtn.classList.toggle('d-none', stepIndex === 0);
     nextBtn.classList.toggle('d-none', stepIndex === formSteps.length - 1);
     submitBtn.classList.toggle('d-none', stepIndex !== formSteps.length - 1);
+
     updateStepper();
+
     window.scrollTo(0, 0);
 
-    // If showing step 3 (index 2), ensure canvases are resized
     if (stepIndex === 2) {
       if (
         localDataSignaturePad &&
@@ -425,6 +418,56 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
   }
+
+  function resetFormularioCompleto() {
+    const form = document.getElementById('signatureLashesForm');
+    form.reset();
+
+    if (localDataSignaturePad) localDataSignaturePad.clear();
+    if (assinaturaSignaturePad) assinaturaSignaturePad.clear();
+
+    localStorage.removeItem('signatureFormAutosave');
+
+    form.classList.remove('was-validated');
+    document
+      .querySelectorAll('.is-invalid')
+      .forEach((el) => el.classList.remove('is-invalid'));
+    document
+      .querySelectorAll('.is-valid')
+      .forEach((el) => el.classList.remove('is-valid'));
+
+    document
+      .querySelectorAll('.invalid-canvas-feedback')
+      .forEach((el) => (el.style.display = 'none'));
+    document.querySelectorAll('.radio-group-feedback').forEach((el) => {
+      el.innerHTML = '';
+      el.className = 'radio-group-feedback';
+      el.style.display = 'none';
+    });
+
+    currentStep = 0;
+    showStep(currentStep);
+    console.log('Formulário resetado.');
+  }
+
+  // --- INITIALIZATIONS & EVENT LISTENERS ---
+  applyMasks();
+  setupRadioGroupFeedback();
+
+  const localDataSignaturePad = initializeSignaturePad('localDataCanvas');
+  const assinaturaSignaturePad = initializeSignaturePad('assinaturaCanvas');
+
+  document.querySelectorAll('.btn-clear-signature').forEach((button) => {
+    button.addEventListener('click', function () {
+      const canvasId = this.dataset.canvas;
+      if (canvasId === 'localDataCanvas' && localDataSignaturePad) {
+        localDataSignaturePad.clear();
+      } else if (canvasId === 'assinaturaCanvas' && assinaturaSignaturePad) {
+        assinaturaSignaturePad.clear();
+      }
+      saveFormState();
+    });
+  });
 
   function validateCurrentStepFields(stepIndex) {
     const currentStepEl = formSteps[stepIndex];
@@ -443,9 +486,9 @@ document.addEventListener('DOMContentLoaded', function () {
         radioGroupsInStep[radio.name] = true;
       });
     for (const groupName in radioGroupsInStep) {
-      if (!document.querySelector(`input[name="${groupName}"]:checked`)) {
+      if (!currentStepEl.querySelector(`input[name="${groupName}"]:checked`)) {
         isStepValid = false;
-        const feedbackEl = document.querySelector(
+        const feedbackEl = currentStepEl.querySelector(
           `.radio-group-feedback[data-feedback-for="${groupName}"]`,
         );
         if (feedbackEl && !feedbackEl.classList.contains('text-success')) {
@@ -487,19 +530,27 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   nextBtn.addEventListener('click', () => {
-    document
-      .getElementById('signatureLashesForm')
-      .classList.add('was-validated');
+    formSteps[currentStep].classList.add('was-validated');
     if (validateCurrentStepFields(currentStep)) {
+      formSteps[currentStep].classList.remove('was-validated');
       currentStep++;
       showStep(currentStep);
       saveFormState();
     } else {
       console.log('Validation failed for step ' + (currentStep + 1));
+      const currentStepFormElements = formSteps[currentStep].querySelectorAll(
+        'input, select, textarea',
+      );
+      currentStepFormElements.forEach((el) => {
+        if (!el.checkValidity()) {
+          // Bootstrap handles visual feedback
+        }
+      });
     }
   });
 
   prevBtn.addEventListener('click', () => {
+    formSteps[currentStep].classList.remove('was-validated');
     currentStep--;
     showStep(currentStep);
   });
@@ -535,14 +586,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     let allStepsValid = true;
     for (let i = 0; i < formSteps.length; i++) {
+      formSteps[i].classList.add('was-validated');
       if (!validateCurrentStepFields(i)) {
         allStepsValid = false;
       }
     }
-    form.classList.add('was-validated');
-
     if (!form.checkValidity()) {
-      // This is Bootstrap's overall check
       allStepsValid = false;
     }
 
@@ -561,9 +610,22 @@ document.addEventListener('DOMContentLoaded', function () {
         'PDF gerado e download iniciado com sucesso!';
       modalBodyContent.classList.add('text-success');
       modalBodyContent.classList.remove('text-danger');
-      if (confirmationModal) confirmationModal.show();
-
-      localStorage.removeItem('signatureFormAutosave');
+      if (confirmationModal) {
+        confirmationModalElement.addEventListener(
+          'hidden.bs.modal',
+          function onModalHidden() {
+            resetFormularioCompleto();
+            confirmationModalElement.removeEventListener(
+              'hidden.bs.modal',
+              onModalHidden,
+            );
+          },
+          { once: true },
+        );
+        confirmationModal.show();
+      } else {
+        resetFormularioCompleto();
+      }
     }
   });
 });
