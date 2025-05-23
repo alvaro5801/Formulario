@@ -1,0 +1,166 @@
+:root {
+    --app-violet-700: #6D28D9;
+    --app-violet-600: #7C3AED;
+    --app-violet-500: #8B5CF6;
+    --app-violet-400: #A78BFA;
+    --app-violet-100: #EDE9FE;
+    --app-violet-50: #F5F3FF;
+    --app-gray-600: #4B5563;
+    --app-gray-300: #D1D5DB;
+    --bs-primary: var(--app-violet-600);
+    --bs-primary-rgb: 124, 58, 237;
+    --bs-body-font-family: 'Inter', sans-serif;
+    --bs-body-bg: var(--app-violet-100);
+    --bs-danger-rgb: 220, 53, 69;
+    --bs-success-rgb: 25, 135, 84; /* Bootstrap success color RGB */
+}
+body {
+    font-size: 0.9rem;
+    color: #374151;
+}
+.font-alex-brush { font-family: 'Alex Brush', cursive; }
+.form-container { background-color: white; }
+.input-bottom-border {
+    border: none;
+    border-bottom: 1px solid var(--app-gray-300);
+    border-radius: 0;
+    padding-top: 0.35rem;
+    padding-bottom: 0.35rem;
+    transition: border-color 0.2s ease-in-out;
+}
+.input-bottom-border:focus {
+    outline: none;
+    border-bottom-color: var(--app-violet-500);
+    box-shadow: none !important; 
+}
+.form-control.input-bottom-border { background-clip: unset; }
+.form-control:focus {
+    border-color: var(--app-violet-500);
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+}
+.form-control.input-bottom-border:focus {
+    border-color: var(--app-violet-500);
+    box-shadow: none;
+}
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--app-violet-700);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--app-violet-400);
+}
+.label-text {
+    color: var(--app-gray-600);
+    font-weight: 500;
+}
+.header-title-script {
+    color: white;
+    background: linear-gradient(to right, var(--app-violet-600), var(--app-violet-700));
+    padding: 0.6rem 1.25rem;
+    border-radius: 0.5rem; 
+    font-size: 3rem; 
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); 
+}
+@media (min-width: 768px) { .header-title-script { font-size: 3.75rem; } }
+.header-title-standard {
+    font-size: 1.875rem; 
+    font-weight: 600; 
+    color: var(--app-violet-700);
+}
+@media (min-width: 768px) { .header-title-standard { font-size: 2.25rem; } }
+.authorization-box {
+    border: 1px solid var(--app-violet-400); 
+    border-radius: 0.375rem; 
+    background-color: var(--app-violet-50);
+    font-size: 0.75rem; 
+    line-height: 1.6; 
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); 
+}
+.authorization-box p { color: var(--app-violet-700); }
+.form-check-input:focus {
+    border-color: var(--app-violet-400);
+    box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+}
+.form-check-input:checked {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
+}
+.btn-submit-custom {
+    background: linear-gradient(to right, var(--app-violet-600), var(--app-violet-700));
+    border: none;
+    font-weight: 600;
+    padding: 0.875rem 2.5rem; 
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); 
+    transition: all 0.15s ease-in-out;
+}
+.btn-submit-custom:hover {
+    background: linear-gradient(to right, var(--app-violet-700), #5b21b6); 
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); 
+    transform: scale(1.03);
+}
+.btn-submit-custom:focus { box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.5); }
+.btn-submit-custom:disabled {
+    background: var(--app-gray-300);
+    cursor: not-allowed;
+}
+
+.needs-validation .form-control:invalid,
+.needs-validation .form-select:invalid { border-color: var(--bs-danger); }
+.needs-validation .form-control.input-bottom-border:invalid { border-bottom-color: var(--bs-danger); }
+
+/* Valid state for general inputs */
+.was-validated .form-control:valid,
+.was-validated .form-select:valid { border-color: var(--bs-success); }
+ .was-validated .form-control.input-bottom-border:valid { border-bottom-color: var(--bs-success); }
+
+.signature-canvas {
+    border: 1px solid var(--app-gray-300);
+    border-radius: 0.25rem;
+    cursor: crosshair;
+    touch-action: none; 
+}
+.signature-box {
+    position: relative;
+}
+.btn-clear-signature {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 0.75rem;
+    padding: 0.1rem 0.4rem;
+}
+.signature-canvas.is-invalid {
+    border-color: var(--bs-danger) !important;
+}
+.invalid-canvas-feedback {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: .875em;
+    color: var(--bs-danger);
+    display: none; 
+}
+.signature-canvas.is-invalid ~ .invalid-canvas-feedback {
+    display: block; 
+}
+.hide-for-pdf {
+    display: none !important;
+}
+
+/* Radio button group feedback styling */
+.radio-group-feedback {
+    font-size: 0.875em;
+    margin-top: 0.25rem;
+    min-height: 1.25em; /* To prevent layout shift */
+    display: none; /* Initially hidden, JS will show it */
+}
+.radio-group-feedback.text-danger {
+    color: var(--bs-danger);
+}
+.radio-group-feedback.text-success {
+    color: var(--bs-success);
+}
+.radio-group-feedback .bi {
+    vertical-align: -0.1em; /* Adjust icon alignment */
+    margin-right: 0.25em;
+}
