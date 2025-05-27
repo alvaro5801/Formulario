@@ -2,29 +2,25 @@
 
 ```mermaid
 graph TD
-    A[Início do Jogo] --> B[Menu Inicial]
-    B --> C{Usuário Pressiona Enter?}
-    C -- Sim --> D[Solicitar Nome do Jogador]
-    D --> E[Inicializar Configurações do Jogo]
-    E --> F[Loop de Turnos]
+    Main.c --> Menu.h
+    Main.c --> Batalha.h
+    Main.c --> Dado.h
+    Main.c --> GerenciarTurnoJogador.h
+    Main.c --> GerenciarTurnoInimigo.h
 
-    F --> G[Turno do Jogador]
-    G --> H[Processar Ataque ou Defesa]
-    H --> I[Verificar Vida do Inimigo]
+    Batalha.c --> Batalha.h
+    Dado.c --> Dado.h
+    Menu.c --> Menu.h
+    GerenciarTurnoJogador.c --> GerenciarTurnoJogador.h
+    GerenciarTurnoInimigo.c --> GerenciarTurnoInimigo.h
+    barradevida.c --> barradevida.h
+    bonecos.c --> bonecos.h
+    gerenciar_dados.c --> gerenciar_dados.h
+    gerenciar_xp.c --> gerenciar_xp.h
+    inimigo.c --> inimigo.h
+    screen.c --> screen.h
+    timer.c --> timer.h
+    visual.c --> visual.h
+    keyboard.c --> keyboard.h
 
-    F --> J[Turno do Inimigo]
-    J --> K[Processar Ação do Inimigo]
-    K --> L[Verificar Vida do Jogador]
-
-    I --> M{Inimigo Derrotado?}
-    L --> N{Jogador Derrotado?}
-
-    M -- Sim --> O[Fim da Batalha - Vitória]
-    N -- Sim --> P[Fim da Batalha - Derrota]
-
-    M -- Não --> F
-    N -- Não --> F
-
-    O --> Q[Fim do Jogo]
-    P --> Q
 ```
