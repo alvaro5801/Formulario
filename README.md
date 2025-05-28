@@ -1,26 +1,31 @@
 
 
 ```mermaid
-graph TD
-    Main.c --> Menu.h
-    Main.c --> Batalha.h
-    Main.c --> Dado.h
-    Main.c --> GerenciarTurnoJogador.h
-    Main.c --> GerenciarTurnoInimigo.h
+flowchart TD
+    A[Início] --> B{Usuário já possui conta?}
+    B -- Sim --> C[Fazer login]
+    B -- Não --> D[Realizar cadastro]
+    D --> C
+    C --> E{Login bem-sucedido?}
+    E -- Sim --> F[Redirecionar para Dashboard]
+    E -- Não --> C2[Exibir erro e tentar novamente]
+    C2 --> C
+    F --> G{Deseja criar uma disciplina?}
+    G -- Sim --> H[Preencher formulário de nova disciplina]
+    H --> I[Salvar disciplina]
+    I --> F
+    G -- Não --> J{Deseja editar disciplina?}
+    J -- Sim --> K[Selecionar disciplina para edição]
+    K --> L[Atualizar dados]
+    L --> F
+    J -- Não --> M{Deseja excluir disciplina?}
+    M -- Sim --> N[Selecionar disciplina para exclusão]
+    N --> O[Confirmar e excluir]
+    O --> F
+    M -- Não --> P{Deseja sair do sistema?}
+    P -- Sim --> Q[Fazer logout]
+    Q --> R[Fim]
+    P -- Não --> F
 
-    Batalha.c --> Batalha.h
-    Dado.c --> Dado.h
-    Menu.c --> Menu.h
-    GerenciarTurnoJogador.c --> GerenciarTurnoJogador.h
-    GerenciarTurnoInimigo.c --> GerenciarTurnoInimigo.h
-    barradevida.c --> barradevida.h
-    bonecos.c --> bonecos.h
-    gerenciar_dados.c --> gerenciar_dados.h
-    gerenciar_xp.c --> gerenciar_xp.h
-    inimigo.c --> inimigo.h
-    screen.c --> screen.h
-    timer.c --> timer.h
-    visual.c --> visual.h
-    keyboard.c --> keyboard.h
 
 ```
