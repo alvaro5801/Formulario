@@ -1,22 +1,83 @@
+/* ==========================================================================
+   1. Variáveis e Configurações Globais (Root & Body)
+   ========================================================================== */
+
 :root {
-    --app-violet-700: #6D28D9;
-    --app-violet-600: #7C3AED;
-    --app-violet-500: #8B5CF6;
-    --app-violet-400: #A78BFA;
-    --app-violet-100: #EDE9FE;
-    --app-violet-50: #F5F3FF;
+    /* NOVA Paleta de Cores Principal (Baseada em Pale Peach) */
+    --app-peach-700: #D97746; /* Sombra mais escura para textos e detalhes */
+    --app-peach-600: #F8A87E; /* Tom mais escuro para gradientes e hovers */
+    --app-peach-500: #FBC1A2; /* COR PRINCIPAL - Pale Peach */
+    --app-peach-400: #FDDAC5; /* Tom mais claro para detalhes */
+    --app-peach-100: #FEF5F1; /* Fundo muito claro */
+    --app-peach-50:  #FFFCFA;  /* Fundo quase branco */
+    
+    /* Cores de suporte */
     --app-gray-600: #4B5563;
     --app-gray-300: #D1D5DB;
-    --bs-primary: var(--app-violet-600);
-    --bs-primary-rgb: 124, 58, 237;
-    --bs-body-font-family: 'Inter', sans-serif;
-    --bs-body-bg: var(--app-violet-100);
+
+    /* Sobrescrita de Variáveis do Bootstrap com a NOVA COR */
+    --bs-primary: var(--app-peach-500);
+    --bs-primary-rgb: 251, 193, 162; /* RGB correspondente a #FBC1A2 */
     --bs-danger-rgb: 220, 53, 69;
     --bs-success-rgb: 25, 135, 84;
+
+    /* Estilos Globais do Body com o NOVO FUNDO */
+    --bs-body-font-family: 'Inter', sans-serif;
+    --bs-body-bg: var(--app-peach-100);
 }
-body { font-size: 0.9rem; color: #374151; }
-.font-alex-brush { font-family: 'Alex Brush', cursive; }
-.form-container { background-color: white; }
+
+body {
+    font-size: 0.9rem;
+    color: #374151;
+}
+
+/* ==========================================================================
+   2. Tipografia e Títulos
+   ========================================================================== */
+
+.font-alex-brush {
+    font-family: 'Alex Brush', cursive;
+}
+
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--app-peach-700);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--app-peach-400);
+}
+
+.label-text {
+    color: var(--app-gray-600);
+    font-weight: 500;
+}
+
+/* Slogan com a nova cor de fundo */
+.header-title-script {
+    color: white;
+    background: linear-gradient(to right, var(--app-peach-600), var(--app-peach-500));
+    padding: 0.6rem 1.25rem;
+    border-radius: 0.5rem;
+    font-size: 3rem;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+}
+
+.header-title-standard {
+    font-size: 1.875rem;
+    font-weight: 600;
+    color: var(--app-peach-700);
+}
+
+/* ==========================================================================
+   3. Estrutura e Componentes do Formulário
+   ========================================================================== */
+
+.form-container {
+    background-color: white;
+}
+
+/* Inputs com borda inferior */
 .input-bottom-border {
     border: none;
     border-bottom: 1px solid var(--app-gray-300);
@@ -24,117 +85,262 @@ body { font-size: 0.9rem; color: #374151; }
     padding-top: 0.35rem;
     padding-bottom: 0.35rem;
     transition: border-color 0.2s ease-in-out;
+    background-clip: unset;
 }
+
 .input-bottom-border:focus {
     outline: none;
-    border-bottom-color: var(--app-violet-500);
-    box-shadow: none !important; 
+    border-bottom-color: var(--app-peach-500);
+    box-shadow: none !important;
 }
-.form-control.input-bottom-border { background-clip: unset; }
+
+/* Estilos gerais para inputs */
 .form-control:focus {
-    border-color: var(--app-violet-500);
+    border-color: var(--app-peach-500);
     box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
 }
-.form-control.input-bottom-border:focus {
-    border-color: var(--app-violet-500);
-    box-shadow: none;
+
+/* Checkbox */
+.form-check-input:checked {
+    background-color: var(--bs-primary);
+    border-color: var(--bs-primary);
 }
-.section-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--app-violet-700);
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid var(--app-violet-400);
-}
-.label-text { color: var(--app-gray-600); font-weight: 500; }
-.header-title-script {
-    color: white;
-    background: linear-gradient(to right, var(--app-violet-600), var(--app-violet-700));
-    padding: 0.6rem 1.25rem;
-    border-radius: 0.5rem; 
-    font-size: 3rem; 
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06); 
-}
-@media (min-width: 768px) { .header-title-script { font-size: 3.75rem; } }
-.header-title-standard { font-size: 1.875rem; font-weight: 600; color: var(--app-violet-700); }
-@media (min-width: 768px) { .header-title-standard { font-size: 2.25rem; } }
+
+/* Caixa de autorização */
 .authorization-box {
-    border: 1px solid var(--app-violet-400); 
-    border-radius: 0.375rem; 
-    background-color: var(--app-violet-50);
-    font-size: 0.75rem; 
-    line-height: 1.6; 
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05); 
+    border: 1px solid var(--app-peach-400);
+    border-radius: 0.375rem;
+    background-color: var(--app-peach-50);
+    font-size: 0.75rem;
+    line-height: 1.6;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
 }
-.authorization-box p { color: var(--app-violet-700); }
-.form-check-input:checked { background-color: var(--bs-primary); border-color: var(--bs-primary); }
+
+.authorization-box p {
+    color: var(--app-peach-700); /* Cor padrão para parágrafos na caixa */
+}
+
+/* ALTERADO: Nova regra para o texto específico de autorização */
+.authorization-box .texto-autorizacao-final {
+    color: #000000; /* Cor preta, apenas para o texto específico */
+}
+
+
+/* ==========================================================================
+   4. Componente de Assinatura (Signature Canvas)
+   ========================================================================== */
+
+.signature-box {
+    position: relative;
+}
+
+.signature-canvas {
+    border: 1px solid var(--app-gray-300);
+    border-radius: 0.25rem;
+    cursor: crosshair;
+    touch-action: none;
+    width: 100%;
+    height: 100px;
+}
+
+.btn-clear-signature {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 0.75rem;
+    padding: 0.1rem 0.4rem;
+}
+
+/* ==========================================================================
+   5. Botões
+   ========================================================================== */
+
 .btn-submit-custom {
-    background: linear-gradient(to right, var(--app-violet-600), var(--app-violet-700));
+    background: linear-gradient(to right, var(--app-peach-600), var(--app-peach-500));
+    color: white;
     border: none;
     font-weight: 600;
-    padding: 0.875rem 2.5rem; 
-    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); 
+    padding: 0.875rem 2.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
     transition: all 0.15s ease-in-out;
 }
+
 .btn-submit-custom:hover {
-    background: linear-gradient(to right, var(--app-violet-700), #5b21b6); 
-    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04); 
+    background: linear-gradient(to right, var(--app-peach-700), var(--app-peach-600));
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
     transform: scale(1.03);
 }
-.btn-submit-custom:disabled { background: var(--app-gray-300); cursor: not-allowed; }
-.was-validated .form-control:valid, .was-validated .form-select:valid { border-color: var(--bs-success); }
-.was-validated .form-control.input-bottom-border:valid { border-bottom-color: var(--bs-success); }
-.signature-canvas { 
-    border: 1px solid var(--app-gray-300); 
-    border-radius: 0.25rem; 
-    cursor: crosshair; 
-    touch-action: none; 
-    width: 100%; 
-    height: 100px; 
+
+.btn-submit-custom:disabled {
+    background: var(--app-gray-300);
+    cursor: not-allowed;
 }
-.signature-box { position: relative; }
-.btn-clear-signature { position: absolute; top: 5px; right: 5px; font-size: 0.75rem; padding: 0.1rem 0.4rem; }
-.signature-canvas.is-invalid { border-color: var(--bs-danger) !important; }
-.invalid-canvas-feedback { width: 100%; margin-top: 0.25rem; font-size: .875em; color: var(--bs-danger); display: none; }
-.signature-canvas.is-invalid ~ .invalid-canvas-feedback { display: block; }
-/* .hide-for-pdf class is now managed by .printing-pdf parent class */
-.radio-group-feedback { font-size: 0.875em; margin-top: 0.25rem; min-height: 1.25em; display: none; }
-.radio-group-feedback.text-danger { color: var(--bs-danger); }
-.radio-group-feedback.text-success { color: var(--bs-success); }
-.radio-group-feedback .bi { vertical-align: -0.1em; margin-right: 0.25em; }
 
-/* Stepper Styles */
-.stepper-wrapper { display: flex; justify-content: space-between; margin-bottom: 2rem; }
-.stepper-item { display: flex; flex-direction: column; align-items: center; flex: 1; }
-.stepper-item .step-counter { position: relative; z-index: 5; display: flex; justify-content: center; align-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--app-gray-300); margin-bottom: 6px; color: white; }
-.stepper-item .step-name { font-size: 0.8rem; font-weight: 500; color: var(--app-gray-600); }
-.stepper-item.completed .step-counter { background-color: var(--bs-success); }
-.stepper-item.active .step-counter { background-color: var(--bs-primary); }
-.stepper-item::before { content: ""; position: relative; top: 20px; width: 100%; height: 2px; background-color: var(--app-gray-300); order: -1; }
-.stepper-item:first-child::before { content: none; }
-.stepper-item.completed::after { content: ""; position: absolute; top: 20px; left: -50%; width: 100%; height: 2px; background-color: var(--bs-success); z-index: 3;}
-.form-step { display: none; animation: fadeIn 0.5s; }
-.form-step.active { display: block; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+/* ==========================================================================
+   6. Stepper (Navegação em Passos)
+   ========================================================================== */
 
-/* Styles for printing preparation */
+.stepper-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+.stepper-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    position: relative;
+}
+
+.stepper-item .step-counter {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--app-gray-300);
+    margin-bottom: 6px;
+    color: white;
+}
+
+.stepper-item .step-name {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--app-gray-600);
+}
+
+.stepper-item::before {
+    content: "";
+    position: absolute;
+    top: 20px;
+    left: -50%;
+    width: 100%;
+    height: 2px;
+    background-color: var(--app-gray-300);
+    z-index: 3;
+}
+
+.stepper-item:first-child::before {
+    content: none;
+}
+
+.stepper-item.active .step-counter {
+    background-color: var(--bs-primary);
+}
+
+.stepper-item.completed .step-counter {
+    background-color: var(--bs-success);
+}
+
+.stepper-item.completed::before {
+    background-color: var(--bs-success);
+}
+
+/* ==========================================================================
+   7. Animações e Transições de Passos
+   ========================================================================== */
+
+.form-step {
+    display: none;
+    animation: fadeIn 0.5s;
+}
+
+.form-step.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* ==========================================================================
+   8. Estilos de Validação
+   ========================================================================== */
+
+.was-validated .form-control:valid,
+.was-validated .form-select:valid {
+    border-color: var(--bs-success);
+}
+
+.was-validated .form-control.input-bottom-border:valid {
+    border-bottom-color: var(--bs-success);
+}
+
+.signature-canvas.is-invalid {
+    border-color: var(--bs-danger) !important;
+}
+
+.invalid-canvas-feedback {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: .875em;
+    color: var(--bs-danger);
+    display: none;
+}
+
+.signature-canvas.is-invalid ~ .invalid-canvas-feedback {
+    display: block;
+}
+
+.radio-group-feedback {
+    font-size: 0.875em;
+    margin-top: 0.25rem;
+    min-height: 1.25em;
+    display: none;
+}
+
+.radio-group-feedback.text-danger {
+    color: var(--bs-danger);
+}
+
+.radio-group-feedback.text-success {
+    color: var(--bs-success);
+}
+
+.radio-group-feedback .bi {
+    vertical-align: -0.1em;
+    margin-right: 0.25em;
+}
+
+/* ==========================================================================
+   9. Estilos para Impressão (Gerar PDF)
+   ========================================================================== */
+
 .printing-pdf .stepper-wrapper,
-.printing-pdf #navigationContainer .btn, /* Hide individual buttons in nav */
+.printing-pdf #navigationContainer,
 .printing-pdf .btn-clear-signature {
     display: none !important;
 }
-.printing-pdf #navigationContainer { /* Hide the whole container */
-     display: none !important;
-}
+
 .printing-pdf .form-step {
-    display: block !important; 
-    animation: none !important; 
-    margin-bottom: 15px; 
-    border-bottom: 1px dashed #eee; /* Optional: visual separator in PDF */
+    display: block !important;
+    animation: none !important;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #eee;
     padding-bottom: 10px;
 }
+
 .printing-pdf .form-step:last-child {
     border-bottom: none;
     margin-bottom: 0;
+}
+
+/* ==========================================================================
+   10. Media Queries (Responsividade)
+   ========================================================================== */
+
+@media (min-width: 768px) {
+    .header-title-script {
+        font-size: 3.75rem;
+    }
+
+    .header-title-standard {
+        font-size: 2.25rem;
+    }
 }
