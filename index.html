@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,17 +10,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container my-5">
-        <div id="formToPrintContainer" class="form-container p-4 p-md-5 shadow-lg rounded-3"> 
+        <div id="formToPrintContainer" class="form-container p-4 p-md-5 shadow-lg rounded-3">
             <form id="signatureLashesForm" class="needs-validation" novalidate>
-                <div class="d-flex flex-column flex-sm-row align-items-center justify-content-between mb-4 pb-4 border-bottom border-2" style="border-color: var(--app-violet-500) !important;">
+                <div class="d-flex flex-column flex-sm-row align-items-center justify-content-between mb-4 pb-4 border-bottom border-2" style="border-color: var(--app-peach-400) !important;">
                     <div class="d-flex align-items-center">
                         <span class="font-alex-brush header-title-script">Signature</span>
                         <span class="ms-3 header-title-standard">Lashes</span>
@@ -90,141 +92,141 @@
                 <div class="form-step">
                     <h2 class="section-title">Avaliação</h2>
                     <div class="mb-4">
-                         <div class="row g-3 mb-3">
-                        <div class="col-md-6">
-                            <p class="label-text mb-1">Está de rímel?</p>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="rimel" id="rimel_sim" value="sim" required>
-                                <label class="form-check-label" for="rimel_sim">Sim</label>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <p class="label-text mb-1">Está de rímel?</p>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="rimel" id="rimel_sim" value="sim" required>
+                                    <label class="form-check-label" for="rimel_sim">Sim</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="rimel" id="rimel_nao" value="nao" required>
+                                    <label class="form-check-label" for="rimel_nao">Não</label>
+                                </div>
+                                <div class="radio-group-feedback" data-feedback-for="rimel"></div>
                             </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="rimel" id="rimel_nao" value="nao" required>
-                                <label class="form-check-label" for="rimel_nao">Não</label>
+                            <div class="col-md-6">
+                                <p class="label-text mb-1">É gestante?</p>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gestante" id="gestante_sim" value="sim" required>
+                                    <label class="form-check-label" for="gestante_sim">Sim</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="gestante" id="gestante_nao" value="nao" required>
+                                    <label class="form-check-label" for="gestante_nao">Não</label>
+                                </div>
+                                <div class="radio-group-feedback" data-feedback-for="gestante"></div>
                             </div>
-                            <div class="radio-group-feedback" data-feedback-for="rimel"></div>
                         </div>
-                        <div class="col-md-6">
-                            <p class="label-text mb-1">É gestante?</p>
+                        <div class="mb-3">
+                            <p class="label-text mb-1">Fez algum procedimento recentemente nos olhos?</p>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="gestante" id="gestante_sim" value="sim" required>
-                                <label class="form-check-label" for="gestante_sim">Sim</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="gestante" id="gestante_nao" value="nao" required>
-                                <label class="form-check-label" for="gestante_nao">Não</label>
-                            </div>
-                            <div class="radio-group-feedback" data-feedback-for="gestante"></div>
-                        </div>
-                    </div>
-                     <div class="mb-3">
-                        <p class="label-text mb-1">Fez algum procedimento recentemente nos olhos?</p>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="proc_olhos" id="proc_olhos_sim" value="sim" required>
-                            <label class="form-check-label" for="proc_olhos_sim">Sim</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="proc_olhos" id="proc_olhos_nao" value="nao" required>
-                            <label class="form-check-label" for="proc_olhos_nao">Não</label>
-                        </div>
-                        <div class="radio-group-feedback" data-feedback-for="proc_olhos"></div>
-                    </div>
-                    <div class="mb-3">
-                        <p class="label-text mb-1">Possui alergia à esmaltes/cosméticos/cianoacrilato?</p>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="alergia_cosmeticos" id="alergia_cosmeticos_sim" value="sim" required>
-                            <label class="form-check-label" for="alergia_cosmeticos_sim">Sim</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="alergia_cosmeticos" id="alergia_cosmeticos_nao" value="nao" required>
-                            <label class="form-check-label" for="alergia_cosmeticos_nao">Não</label>
-                        </div>
-                        <div class="radio-group-feedback" data-feedback-for="alergia_cosmeticos"></div>
-                        <div class="mt-1">
-                            <label for="alergia_cosmeticos_especifique" class="form-label text-muted" style="font-size: 0.8em;">Especifique:</label>
-                            <input type="text" id="alergia_cosmeticos_especifique" name="alergia_cosmeticos_especifique" class="form-control input-bottom-border" style="font-size: 0.8em;">
-                        </div>
-                    </div>
-                     <div class="row g-3 mb-3">
-                        <div class="col-md-6">
-                            <p class="label-text mb-1">Possui problema de tireoide?</p>
-                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="tireoide" id="tireoide_sim" value="sim" required>
-                                <label class="form-check-label" for="tireoide_sim">Sim</label>
+                                <input class="form-check-input" type="radio" name="proc_olhos" id="proc_olhos_sim" value="sim" required>
+                                <label class="form-check-label" for="proc_olhos_sim">Sim</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="tireoide" id="tireoide_nao" value="nao" required>
-                                <label class="form-check-label" for="tireoide_nao">Não</label>
+                                <input class="form-check-input" type="radio" name="proc_olhos" id="proc_olhos_nao" value="nao" required>
+                                <label class="form-check-label" for="proc_olhos_nao">Não</label>
                             </div>
-                            <div class="radio-group-feedback" data-feedback-for="tireoide"></div>
+                            <div class="radio-group-feedback" data-feedback-for="proc_olhos"></div>
                         </div>
-                        <div class="col-md-6">
-                            <p class="label-text mb-1">Possui glaucoma/blefarite/algum problema ocular?</p>
+                        <div class="mb-3">
+                            <p class="label-text mb-1">Possui alergia à esmaltes/cosméticos/cianoacrilato?</p>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="problema_ocular" id="problema_ocular_sim" value="sim" required>
-                                <label class="form-check-label" for="problema_ocular_sim">Sim</label>
+                                <input class="form-check-input" type="radio" name="alergia_cosmeticos" id="alergia_cosmeticos_sim" value="sim" required>
+                                <label class="form-check-label" for="alergia_cosmeticos_sim">Sim</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="problema_ocular" id="problema_ocular_nao" value="nao" required>
-                                <label class="form-check-label" for="problema_ocular_nao">Não</label>
+                                <input class="form-check-input" type="radio" name="alergia_cosmeticos" id="alergia_cosmeticos_nao" value="nao" required>
+                                <label class="form-check-label" for="alergia_cosmeticos_nao">Não</label>
                             </div>
-                            <div class="radio-group-feedback" data-feedback-for="problema_ocular"></div>
-                             <div class="mt-1">
-                                <label for="problema_ocular_especifique" class="form-label text-muted" style="font-size: 0.8em;">Especifique:</label>
-                                <input type="text" id="problema_ocular_especifique" name="problema_ocular_especifique" class="form-control input-bottom-border" style="font-size: 0.8em;">
+                            <div class="radio-group-feedback" data-feedback-for="alergia_cosmeticos"></div>
+                            <div class="mt-1">
+                                <label for="alergia_cosmeticos_especifique" class="form-label text-muted" style="font-size: 0.8em;">Especifique:</label>
+                                <input type="text" id="alergia_cosmeticos_especifique" name="alergia_cosmeticos_especifique" class="form-control input-bottom-border" style="font-size: 0.8em;">
                             </div>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <p class="label-text mb-1">Está em tratamento oncológico?</p>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="oncologico" id="oncologico_sim" value="sim" required>
-                            <label class="form-check-label" for="oncologico_sim">Sim</label>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <p class="label-text mb-1">Possui problema de tireoide?</p>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="tireoide" id="tireoide_sim" value="sim" required>
+                                    <label class="form-check-label" for="tireoide_sim">Sim</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="tireoide" id="tireoide_nao" value="nao" required>
+                                    <label class="form-check-label" for="tireoide_nao">Não</label>
+                                </div>
+                                <div class="radio-group-feedback" data-feedback-for="tireoide"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="label-text mb-1">Possui glaucoma/blefarite/algum problema ocular?</p>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="problema_ocular" id="problema_ocular_sim" value="sim" required>
+                                    <label class="form-check-label" for="problema_ocular_sim">Sim</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="problema_ocular" id="problema_ocular_nao" value="nao" required>
+                                    <label class="form-check-label" for="problema_ocular_nao">Não</label>
+                                </div>
+                                <div class="radio-group-feedback" data-feedback-for="problema_ocular"></div>
+                                <div class="mt-1">
+                                    <label for="problema_ocular_especifique" class="form-label text-muted" style="font-size: 0.8em;">Especifique:</label>
+                                    <input type="text" id="problema_ocular_especifique" name="problema_ocular_especifique" class="form-control input-bottom-border" style="font-size: 0.8em;">
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="oncologico" id="oncologico_nao" value="nao" required>
-                            <label class="form-check-label" for="oncologico_nao">Não</label>
+                        <div class="mb-3">
+                            <p class="label-text mb-1">Está em tratamento oncológico?</p>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="oncologico" id="oncologico_sim" value="sim" required>
+                                <label class="form-check-label" for="oncologico_sim">Sim</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="oncologico" id="oncologico_nao" value="nao" required>
+                                <label class="form-check-label" for="oncologico_nao">Não</label>
+                            </div>
+                            <div class="radio-group-feedback" data-feedback-for="oncologico"></div>
                         </div>
-                        <div class="radio-group-feedback" data-feedback-for="oncologico"></div>
-                    </div>
-                    <div class="mb-3">
-                        <p class="label-text mb-1">Dorme de lado?</p>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="dorme_lado" id="dorme_lado_sim" value="sim" required>
-                            <label class="form-check-label" for="dorme_lado_sim">Sim</label>
+                        <div class="mb-3">
+                            <p class="label-text mb-1">Dorme de lado?</p>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="dorme_lado" id="dorme_lado_sim" value="sim" required>
+                                <label class="form-check-label" for="dorme_lado_sim">Sim</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="dorme_lado" id="dorme_lado_nao" value="nao" required>
+                                <label class="form-check-label" for="dorme_lado_nao">Não</label>
+                            </div>
+                            <div class="radio-group-feedback" data-feedback-for="dorme_lado"></div>
+                            <div class="mt-1">
+                                <label for="dorme_lado_qual" class="form-label text-muted" style="font-size: 0.8em;">Qual? Especifique:</label>
+                                <input type="text" id="dorme_lado_qual" name="dorme_lado_qual" class="form-control input-bottom-border" style="font-size: 0.8em;">
+                            </div>
                         </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="dorme_lado" id="dorme_lado_nao" value="nao" required>
-                            <label class="form-check-label" for="dorme_lado_nao">Não</label>
+                        <div class="mb-3">
+                            <p class="label-text mb-1">Existe algum problema que julgue ser necessário informar ao profissional antes do procedimento?</p>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="outro_problema" id="outro_problema_sim" value="sim" required>
+                                <label class="form-check-label" for="outro_problema_sim">Sim</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="outro_problema" id="outro_problema_nao" value="nao" required>
+                                <label class="form-check-label" for="outro_problema_nao">Não</label>
+                            </div>
+                            <div class="radio-group-feedback" data-feedback-for="outro_problema"></div>
+                            <div class="mt-1">
+                                <label for="outro_problema_especifique" class="form-label text-muted" style="font-size: 0.8em;">Especifique:</label>
+                                <input type="text" id="outro_problema_especifique" name="outro_problema_especifique" class="form-control input-bottom-border" style="font-size: 0.8em;">
+                            </div>
                         </div>
-                        <div class="radio-group-feedback" data-feedback-for="dorme_lado"></div>
-                        <div class="mt-1">
-                            <label for="dorme_lado_qual" class="form-label text-muted" style="font-size: 0.8em;">Qual? Especifique:</label>
-                            <input type="text" id="dorme_lado_qual" name="dorme_lado_qual" class="form-control input-bottom-border" style="font-size: 0.8em;">
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <p class="label-text mb-1">Existe algum problema que julgue ser necessário informar ao profissional antes do procedimento?</p>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="outro_problema" id="outro_problema_sim" value="sim" required>
-                            <label class="form-check-label" for="outro_problema_sim">Sim</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="outro_problema" id="outro_problema_nao" value="nao" required>
-                            <label class="form-check-label" for="outro_problema_nao">Não</label>
-                        </div>
-                        <div class="radio-group-feedback" data-feedback-for="outro_problema"></div>
-                        <div class="mt-1">
-                            <label for="outro_problema_especifique" class="form-label text-muted" style="font-size: 0.8em;">Especifique:</label>
-                            <input type="text" id="outro_problema_especifique" name="outro_problema_especifique" class="form-control input-bottom-border" style="font-size: 0.8em;">
-                        </div>
-                    </div>
                     </div>
                 </div>
 
                 <div class="form-step">
                     <h2 class="section-title">Finalização</h2>
-                     <div class="p-3 mb-4 authorization-box">
-                        <p>Autorizo a realização de procedimento de Alongamento de Cílios. Autorizo o registro fotográfico do antes e depois, para documentação e divulgação da profissional. As declarações acima são verdadeiras, não cabendo ao profissional a responsabilidade por informações omitidas nesta avaliação. Me comprometo a seguir todos os cuidados necessários após o procedimento.</p>
+                    <div class="p-3 mb-4 authorization-box">
+                        <p class="texto-autorizacao-final">Autorizo a realização de procedimento de Alongamento de Cílios. Autorizo o registro fotográfico do antes e depois, para documentação e divulgação da profissional. As declarações acima são verdadeiras, não cabendo ao profissional a responsabilidade por informações omitidas nesta avaliação. Me comprometo a seguir todos os cuidados necessários após o procedimento.</p>
                     </div>
                     <div class="row g-3 mb-5 align-items-end">
                         <div class="col-md-6">
@@ -237,7 +239,7 @@
                         </div>
                         <div class="col-md-6">
                             <label for="assinaturaCanvas" class="form-label label-text">Ass (Assinatura):</label>
-                             <div class="signature-box">
+                            <div class="signature-box">
                                 <canvas id="assinaturaCanvas" class="signature-canvas"></canvas>
                                 <button type="button" class="btn btn-sm btn-outline-secondary btn-clear-signature" data-canvas="assinaturaCanvas">Limpar</button>
                             </div>
@@ -249,12 +251,24 @@
                         <div class="mb-3">
                             <p class="label-text mb-1">Técnica:</p>
                             <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-2">
-                                <div><div class="form-check"><input class="form-check-input" type="checkbox" name="tecnica[]" value="fio_a_fio" id="tec_fio_a_fio"><label class="form-check-label" for="tec_fio_a_fio">Fio a Fio</label></div></div>
-                                <div><div class="form-check"><input class="form-check-input" type="checkbox" name="tecnica[]" value="volume_russo" id="tec_vol_russo"><label class="form-check-label" for="tec_vol_russo">Volume Russo</label></div></div>
-                                <div><div class="form-check"><input class="form-check-input" type="checkbox" name="tecnica[]" value="mega_volume" id="tec_mega_vol"><label class="form-check-label" for="tec_mega_vol">Mega Volume</label></div></div>
-                                <div><div class="form-check"><input class="form-check-input" type="checkbox" name="tecnica[]" value="hibrido" id="tec_hibrido"><label class="form-check-label" for="tec_hibrido">Híbrido</label></div></div>
-                                <div><div class="form-check"><input class="form-check-input" type="checkbox" name="tecnica[]" value="lifting" id="tec_lifting"><label class="form-check-label" for="tec_lifting">Lifting</label></div></div>
-                                <div><div class="form-check"><input class="form-check-input" type="checkbox" name="tecnica[]" value="permanente" id="tec_permanente"><label class="form-check-label" for="tec_permanente">Permanente</label></div></div>
+                                <div>
+                                    <div class="form-check"><input class="form-check-input" type="checkbox" name="tecnica[]" value="fio_a_fio" id="tec_fio_a_fio"><label class="form-check-label" for="tec_fio_a_fio">Fio a Fio</label></div>
+                                </div>
+                                <div>
+                                    <div class="form-check"><input class="form-check-input" type="checkbox" name="tecnica[]" value="volume_russo" id="tec_vol_russo"><label class="form-check-label" for="tec_vol_russo">Volume Russo</label></div>
+                                </div>
+                                <div>
+                                    <div class="form-check"><input class="form-check-input" type="checkbox" name="tecnica[]" value="mega_volume" id="tec_mega_vol"><label class="form-check-label" for="tec_mega_vol">Mega Volume</label></div>
+                                </div>
+                                <div>
+                                    <div class="form-check"><input class="form-check-input" type="checkbox" name="tecnica[]" value="hibrido" id="tec_hibrido"><label class="form-check-label" for="tec_hibrido">Híbrido</label></div>
+                                </div>
+                                <div>
+                                    <div class="form-check"><input class="form-check-input" type="checkbox" name="tecnica[]" value="volume_egipicio" id="tec_volume_egipicio"><label class="form-check-label" for="tec_volume_egipicio">Volume Egipício</label></div>
+                                </div>
+                                <div>
+                                    <div class="form-check"><input class="form-check-input" type="checkbox" name="tecnica[]" value="volume_fox" id="tec_volume_fox"><label class="form-check-label" for="tec_volume_fox">Volume Fox</label></div>
+                                </div>
                             </div>
                         </div>
                         <div class="row g-3 mb-3">
@@ -285,24 +299,25 @@
     </div>
 
     <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="confirmationModalLabel" style="color: var(--app-violet-700);">Confirmação</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body" id="modalBodyContent">
-            Formulário enviado para demonstração!
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: var(--app-gray-600);">Fechar</button>
-          </div>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalLabel" style="color: var(--app-peach-700);">Confirmação</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalBodyContent">
+                    Formulário enviado para demonstração!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="background-color: var(--app-gray-600);">Fechar</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-masker/1.2.0/vanilla-masker.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="script.js" defer></script>
 </body>
+
 </html>
